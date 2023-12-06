@@ -11,7 +11,7 @@ const App = () => {
     event.preventDefault()
 
     try {
-      const { results } = await searchRecipes(searchTerm, 1)
+      const { results } = await searchRecipes('burger', 1)
       setRecipes(results)
     } catch (error) {
       console.error(error)
@@ -21,9 +21,10 @@ const App = () => {
   return (
     <div>
       <form onSubmit={handleSearchSubmit}>
+        <label htmlFor=''></label>
         <button type='submit'>Submit</button>
       </form>
-      {recipes.map((recipe) => (
+      {recipes.map((recipe: Recipe) => (
         <div key={recipe.id}>
           Recipe Image Location: {recipe.image}
           <br />
