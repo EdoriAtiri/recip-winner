@@ -3,7 +3,6 @@ import './App.css'
 import { searchRecipes } from './API'
 import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
-import img from './assets/person-using-pc.jpg'
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
