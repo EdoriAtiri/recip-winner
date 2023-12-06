@@ -2,6 +2,7 @@ import { useState, FormEvent, useRef } from 'react'
 import './App.css'
 import { searchRecipes } from './API'
 import { Recipe } from './types'
+import RecipeCard from './components/RecipeCard'
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -15,7 +16,7 @@ const App = () => {
 
     try {
       const pageNumber: number = page.current
-      const { results } = await searchRecipes('burger', pageNumber)
+      const { results } = await searchRecipes(searchTerm, pageNumber)
       setRecipes(results)
     } catch (error) {
       console.error(error)
@@ -36,8 +37,13 @@ const App = () => {
 
   return (
     <div>
+      <RecipeCard />
       <form onSubmit={handleSearchSubmit}>
-        <label htmlFor=''></label>
+        <input
+          type='text'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />{' '}
         <button type='submit'>Submit</button>
       </form>
       {recipes.map((recipe: Recipe) => (
