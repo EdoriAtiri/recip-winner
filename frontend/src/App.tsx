@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useRef } from 'react'
 import './App.css'
 import { searchRecipes } from './API'
 import { Recipe } from './types'
@@ -6,13 +6,29 @@ import { Recipe } from './types'
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [recipes, setRecipes] = useState<Recipe[]>([])
+  const page: React.MutableRefObject<number> = useRef<number>(1)
 
+  // Search for recipe on submit
   const handleSearchSubmit = async (event: FormEvent) => {
     event.preventDefault()
+    page.current = 1
 
     try {
-      const { results } = await searchRecipes('burger', 1)
+      const pageNumber: number = page.current
+      const { results } = await searchRecipes('burger', pageNumber)
       setRecipes(results)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // Load more recipes
+  const handleViewMoreClick = async () => {
+    try {
+      const nextPage: number = page.current + 1
+      const nextRecipes = await searchRecipes(searchTerm, nextPage)
+      setRecipes((prevRecipes) => [...prevRecipes, ...nextRecipes.results])
+      page.current = nextPage
     } catch (error) {
       console.error(error)
     }
@@ -31,6 +47,8 @@ const App = () => {
           Recipe Title: {recipe.title}
         </div>
       ))}
+
+      <button onClick={handleViewMoreClick}>View More</button>
     </div>
   )
 }
