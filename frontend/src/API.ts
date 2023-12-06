@@ -12,4 +12,16 @@ const searchRecipes = async (searchTerm: string, page: number) => {
   return response.json()
 }
 
-export { searchRecipes }
+const getRecipeSummary = async (id: string) => {
+  const baseURL = new URL(`http://localhost:5000/api/recipe/${id}/summary`)
+
+  const response = await fetch(baseURL.toString())
+
+  if (!response.ok) {
+    throw new Error(`HTTP Error: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export { searchRecipes, getRecipeSummary }
