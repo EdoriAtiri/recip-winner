@@ -3,6 +3,7 @@ import './App.css'
 import { searchRecipes } from './API'
 import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
+import img from './assets/person-using-pc.jpg'
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -36,8 +37,7 @@ const App = () => {
   }
 
   return (
-    <div>
-      <RecipeCard />
+    <div className='container'>
       <form onSubmit={handleSearchSubmit}>
         <input
           type='text'
@@ -46,13 +46,12 @@ const App = () => {
         />{' '}
         <button type='submit'>Submit</button>
       </form>
-      {recipes.map((recipe: Recipe) => (
-        <div key={recipe.id}>
-          Recipe Image Location: {recipe.image}
-          <br />
-          Recipe Title: {recipe.title}
-        </div>
-      ))}
+
+      <div className='cardContainer'>
+        {recipes.map((recipe: Recipe) => (
+          <RecipeCard key={recipe.id} src={recipe.image} title={recipe.title} />
+        ))}
+      </div>
 
       <button onClick={handleViewMoreClick}>View More</button>
     </div>
