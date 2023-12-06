@@ -28,12 +28,13 @@ const RecipeModal: React.FC<Props> = ({ recipeId, onClose }) => {
         <div className='modal-content'>
           <div className='modal-header'>
             <h2>{recipeSummary?.title}</h2>
-            <span className='close-button' onClick={onClose}>
+            <button className='close-button' onClick={onClose}>
               &times;
-            </span>
+            </button>
           </div>
-          {/* <p dangerouslySetInnerHTML={{ __html: recipeSummary?.summary }} /> */}
-          <p>{recipeSummary?.summary}</p>
+          <p
+            dangerouslySetInnerHTML={{ __html: recipeSummary?.summary || '' }}
+          />
         </div>
       </div>
     </div>

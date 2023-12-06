@@ -3,10 +3,14 @@ import './App.css'
 import { searchRecipes } from './API'
 import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
+import RecipeModal from './components/RecipeModal'
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(
+    undefined
+  )
   const page: React.MutableRefObject<number> = useRef<number>(1)
 
   // Search for recipe on submit
@@ -48,11 +52,23 @@ const App = () => {
 
       <div className='cardContainer'>
         {recipes.map((recipe: Recipe) => (
-          <RecipeCard key={recipe.id} src={recipe.image} title={recipe.title} />
+          <RecipeCard
+            click={() => setSelectedRecipe(recipe)}
+            key={recipe.id}
+            src={recipe.image}
+            title={recipe.title}
+          />
         ))}
       </div>
 
       <button onClick={handleViewMoreClick}>View More</button>
+
+      {selectedRecipe && (
+        <RecipeModal
+          recipeId={selectedRecipe.id.toString()}
+          onClose={() => setSelectedRecipe(undefined)}
+        />
+      )}
     </div>
   )
 }

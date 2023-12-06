@@ -1,12 +1,20 @@
 import '../App.css'
-const RecipeCard = ({ src, title }: { src: string; title: string }) => {
+const RecipeCard = ({
+  src,
+  title,
+  click,
+}: {
+  src: string
+  title: string
+  click: React.MouseEventHandler<HTMLButtonElement>
+}) => {
   return (
-    <div className='recipeCard'>
+    <button onClick={click} className='recipeCard'>
       <figure>
         <img src={src} alt='' />
       </figure>
       <p>{title}</p>
-    </div>
+    </button>
   )
 }
 
