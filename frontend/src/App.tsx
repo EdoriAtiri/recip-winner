@@ -1,6 +1,11 @@
 import { useState, FormEvent, useRef, useEffect } from 'react'
 import './App.css'
-import { searchRecipes, getFavoriteRecipes, addFavoriteRecipe } from './API'
+import {
+  searchRecipes,
+  getFavoriteRecipes,
+  addFavoriteRecipe,
+  removeFavoriteRecipe,
+} from './API'
 import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
 import RecipeModal from './components/RecipeModal'
@@ -62,6 +67,19 @@ const App = () => {
     try {
       await addFavoriteRecipe(recipe)
       setFavoriteRecipes([...favoriteRecipes, recipe])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Unfavorite a recipe
+  const unfavoriteRecipe = async (recipe: Recipe) => {
+    try {
+      await removeFavoriteRecipe(recipe)
+      const updatedRecipes = favoriteRecipes.filter(
+        (favRecipe) => favRecipe.id !== recipe.id
+      )
+      setFavoriteRecipes(updatedRecipes)
     } catch (error) {
       console.log(error)
     }
