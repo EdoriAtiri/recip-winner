@@ -1,6 +1,6 @@
 import { useState, FormEvent, useRef, useEffect } from 'react'
 import './App.css'
-import { searchRecipes, getFavoriteRecipes } from './API'
+import { searchRecipes, getFavoriteRecipes, addFavoriteRecipe } from './API'
 import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
 import RecipeModal from './components/RecipeModal'
@@ -11,7 +11,7 @@ const App = () => {
   const [selectedTab, setSelectedTab] = useState<Tabs>('search')
   const [searchTerm, setSearchTerm] = useState('')
   const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [favoriteRecipes, setFavoriteRecipes] = useState([])
+  const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>([])
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(
     undefined
   )
@@ -58,7 +58,7 @@ const App = () => {
   }, [])
 
   // Favorite a recipe
-  const addAfavoriteRecipe = async (recipe) => {
+  const favoriteRecipe = async (recipe: Recipe) => {
     try {
       await addFavoriteRecipe(recipe)
       setFavoriteRecipes([...favoriteRecipes, recipe])
@@ -92,6 +92,7 @@ const App = () => {
                 key={recipe.id}
                 src={recipe.image}
                 title={recipe.title}
+                onFavoriteButtonClick={favoriteRecipe}
               />
             ))}
           </div>
@@ -108,6 +109,7 @@ const App = () => {
               key={recipe.id}
               src={recipe.image}
               title={recipe.title}
+              onFavoriteButtonClick={favoriteRecipe}
             />
           ))}
         </div>
