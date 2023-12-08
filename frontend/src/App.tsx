@@ -104,15 +104,27 @@ const App = () => {
           </form>
 
           <div className='cardContainer'>
-            {recipes.map((recipe: Recipe) => (
-              <RecipeCard
-                click={() => setSelectedRecipe(recipe)}
-                key={recipe.id}
-                src={recipe.image}
-                title={recipe.title}
-                onFavoriteButtonClick={favoriteRecipe}
-              />
-            ))}
+            {recipes.map((recipe: Recipe) => {
+              // Determine favorite state for each recipe inside the map function
+              const isFavorite = favoriteRecipes.some(
+                (favRecipe) => favRecipe.id === recipe.id
+              )
+
+              return (
+                <RecipeCard
+                  click={() => setSelectedRecipe(recipe)}
+                  key={recipe.id}
+                  src={recipe.image}
+                  title={recipe.title}
+                  onFavoriteButtonClick={
+                    isFavorite
+                      ? () => unfavoriteRecipe(recipe)
+                      : () => favoriteRecipe(recipe)
+                  }
+                  isFavorite={isFavorite}
+                />
+              )
+            })}
           </div>
 
           <button onClick={handleViewMoreClick}>View More</button>
@@ -121,15 +133,27 @@ const App = () => {
 
       {selectedTab === 'favorites' && (
         <div className='cardContainer'>
-          {favoriteRecipes.map((recipe: Recipe) => (
-            <RecipeCard
-              click={() => setSelectedRecipe(recipe)}
-              key={recipe.id}
-              src={recipe.image}
-              title={recipe.title}
-              onFavoriteButtonClick={favoriteRecipe}
-            />
-          ))}
+          {favoriteRecipes.map((recipe: Recipe) => {
+            // Determine favorite state for each recipe inside the map function
+            const isFavorite = favoriteRecipes.some(
+              (favRecipe) => favRecipe.id === recipe.id
+            )
+
+            return (
+              <RecipeCard
+                click={() => setSelectedRecipe(recipe)}
+                key={recipe.id}
+                src={recipe.image}
+                title={recipe.title}
+                onFavoriteButtonClick={
+                  isFavorite
+                    ? () => unfavoriteRecipe(recipe)
+                    : () => favoriteRecipe(recipe)
+                }
+                isFavorite={isFavorite}
+              />
+            )
+          })}
         </div>
       )}
 
