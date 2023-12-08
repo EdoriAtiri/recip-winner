@@ -1,6 +1,6 @@
-import { useState, FormEvent, useRef } from 'react'
+import { useState, FormEvent, useRef, useEffect } from 'react'
 import './App.css'
-import { searchRecipes } from './API'
+import { searchRecipes, getFavoriteRecipes } from './API'
 import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
 import RecipeModal from './components/RecipeModal'
@@ -11,6 +11,7 @@ const App = () => {
   const [selectedTab, setSelectedTab] = useState<Tabs>('search')
   const [searchTerm, setSearchTerm] = useState('')
   const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [favoriteRecipes, setFavoriteRecipes] = useState([])
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(
     undefined
   )
@@ -41,6 +42,19 @@ const App = () => {
       console.error(error)
     }
   }
+
+  useEffect(() => {
+    const fetchFavoriteRecipes = async () => {
+      try {
+        const favoriteRecipes = await getFavoriteRecipes()
+        setFavoriteRecipes(favoriteRecipes.results)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchFavoriteRecipes()
+  }, [])
 
   return (
     <div className='container'>
@@ -76,8 +90,16 @@ const App = () => {
       )}
 
       {selectedTab === 'favorites' && (
-        <div></div>
-        // favorites component code...
+        <div className='cardContainer'>
+          {favoriteRecipes.map((recipe: Recipe) => (
+            <RecipeCard
+              click={() => setSelectedRecipe(recipe)}
+              key={recipe.id}
+              src={recipe.image}
+              title={recipe.title}
+            />
+          ))}
+        </div>
       )}
 
       {selectedRecipe && (
