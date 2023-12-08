@@ -63,7 +63,7 @@ app.delete('/api/recipes/favorite', async (req, res) => {
     await prismaClient.favoriteRecipe.delete({
       where: { recipeId },
     })
-    res.status(204).send()
+    res.status(204).json({ success: true })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Oops, something went wrong.' })
