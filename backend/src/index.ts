@@ -56,6 +56,20 @@ app.get('/api/recipes/favorite', async (req, res) => {
   }
 })
 
+// Delete favorite recipe
+app.delete('/api/recipes/favorite', async (req, res) => {
+  const { recipeId } = req.body
+  try {
+    await prismaClient.favoriteRecipe.delete({
+      where: { recipeId },
+    })
+    res.status(204).send()
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Oops, something went wrong.' })
+  }
+})
+
 app.listen(5000, () => {
   console.log('Server running on localhost:5000')
 })
