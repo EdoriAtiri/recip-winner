@@ -75,6 +75,11 @@ const App = () => {
         </div>
       )}
 
+      {selectedTab === 'favorites' && (
+        <div></div>
+        // favorites component code...
+      )}
+
       {selectedRecipe && (
         <RecipeModal
           recipeId={selectedRecipe.id.toString()}
