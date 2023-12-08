@@ -53,9 +53,27 @@ const addFavoriteRecipe = async (recipe: Recipe) => {
   }
 }
 
+// Remove as favorite recipe
+const removeFavoriteRecipe = async (recipe: Recipe) => {
+  const body = {
+    recipeID: recipe.id,
+  }
+  const response = await fetch('http://localhost:5000/api/recipes/favourite', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to remove favorite')
+  }
+}
+
 export {
   searchRecipes,
   getRecipeSummary,
   getFavoriteRecipes,
   addFavoriteRecipe,
+  removeFavoriteRecipe,
 }
