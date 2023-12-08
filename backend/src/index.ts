@@ -1,7 +1,10 @@
 import express from 'express'
 import cors from 'cors'
+import { PrismaClient } from '@prisma/client'
 
 import * as RecipeAPI from './recipe-api'
+
+const prismaClient = new PrismaClient()
 
 const app = express()
 
