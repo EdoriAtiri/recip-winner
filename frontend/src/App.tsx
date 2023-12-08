@@ -44,6 +44,7 @@ const App = () => {
   }
 
   useEffect(() => {
+    // Get favorite recipes
     const fetchFavoriteRecipes = async () => {
       try {
         const favoriteRecipes = await getFavoriteRecipes()
@@ -55,6 +56,16 @@ const App = () => {
 
     fetchFavoriteRecipes()
   }, [])
+
+  // Favorite a recipe
+  const addAfavoriteRecipe = async (recipe) => {
+    try {
+      await addFavoriteRecipe(recipe)
+      setFavoriteRecipes([...favoriteRecipes, recipe])
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className='container'>
