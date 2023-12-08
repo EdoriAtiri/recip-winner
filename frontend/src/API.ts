@@ -24,4 +24,14 @@ const getRecipeSummary = async (id: string) => {
   return response.json()
 }
 
-export { searchRecipes, getRecipeSummary }
+const getFavoriteRecipes = async () => {
+  const url = new URL('http://localhost:5000/api/recipes/favourite')
+  const response = await fetch(url)
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`)
+  }
+  return response.json()
+}
+
+export { searchRecipes, getRecipeSummary, getFavoriteRecipes }
