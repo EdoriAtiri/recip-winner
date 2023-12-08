@@ -27,6 +27,20 @@ app.get('/api/recipe/:recipeId/summary', async (req, res) => {
   res.json(result)
 })
 
+// Create favorite recipe
+app.post('/api/recipes/favorite', async (req, res) => {
+  const { recipeId } = req.body
+  try {
+    const favoriteRecipe = await prismaClient.favoriteRecipe.create({
+      data: { recipeId },
+    })
+    res.status(201).json(favoriteRecipe)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Oops, something went wrong.' })
+  }
+})
+
 app.listen(5000, () => {
   console.log('Server running on localhost:5000')
 })
