@@ -10,6 +10,7 @@ import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
 import RecipeModal from './components/RecipeModal'
 import hero from './assets/hero-image.jpg'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 type Tabs = 'search' | 'favorites'
 
@@ -94,19 +95,32 @@ const App = () => {
       </header>
 
       <div className='tabs'>
-        <button onClick={() => setSelectedTab('search')}>Recipe Search</button>
-        <button onClick={() => setSelectedTab('favorites')}>Favorites</button>
+        <button
+          className={`tab ${selectedTab === 'search' ? 'tab-active' : ''}`}
+          onClick={() => setSelectedTab('search')}
+        >
+          Recipe Search
+        </button>
+        <button
+          className={`tab ${selectedTab === 'favorites' ? 'tab-active' : ''}`}
+          onClick={() => setSelectedTab('favorites')}
+        >
+          Favorites
+        </button>
       </div>
 
+      {/* Search */}
       {selectedTab === 'search' && (
-        <div>
+        <div className='main'>
           <form onSubmit={handleSearchSubmit}>
             <input
               type='text'
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />{' '}
-            <button type='submit'>Submit</button>
+            <button>
+              <AiOutlineSearch size={40} />
+            </button>{' '}
           </form>
 
           <div className='cardContainer'>
@@ -133,7 +147,9 @@ const App = () => {
             })}
           </div>
 
-          <button onClick={handleViewMoreClick}>View More</button>
+          <button className='view-more-button' onClick={handleViewMoreClick}>
+            View More
+          </button>
         </div>
       )}
 

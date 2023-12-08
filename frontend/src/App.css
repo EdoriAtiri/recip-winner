@@ -7,6 +7,19 @@ body {
   box-sizing: border-box;
 }
 
+body {
+  padding: 1em 0;
+  height: 100vh;
+  background-color: #f0f0f0; /* or any color you prefer */
+}
+
+@media (min-width: 768px) {
+  body {
+    margin-left: 10em;
+    margin-right: 10em;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -27,7 +40,7 @@ body {
 
 .header img {
   width: 100%;
-  height: 400px;
+  height: 300px;
   object-fit: cover;
   object-position: center;
   opacity: 0.5;
@@ -47,6 +60,50 @@ body {
   padding: 0.5em 1.5em 0.5em 1.5em;
 }
 
+/* Tab */
+.tabs {
+  display: flex;
+  gap: 1rem;
+}
+
+.tab {
+  outline: none;
+  border: none;
+  background-color: none;
+  padding-bottom: 0.5em;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.tab-active {
+  border-bottom: 4px solid orange; /* or any color you prefer */
+}
+
+/* Form */
+form {
+  display: flex;
+  background-color: white;
+  align-items: center;
+}
+
+input {
+  padding: 0.5em;
+  font-size: 2em;
+  flex: 1;
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+form > button {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Recipe card */
 .cardContainer {
   width: 100%;
   display: flex;
@@ -55,7 +112,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Recipe card */
 .recipeCard {
   width: 300px;
   height: 200px;
@@ -68,6 +124,7 @@ body {
   gap: 5px;
   padding: 20px 40px;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .recipeCard figure {
@@ -82,9 +139,13 @@ body {
   height: 100%;
   padding: 0;
 }
-.recipeCard h3 {
-  padding: 0;
-  font-size: 0.9rem;
+
+.recipe-card h3 {
+  font-size: 1.5em;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .recipe-card-title {
@@ -128,4 +189,11 @@ body {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.view-more-button {
+  font-size: 1.3em;
+  padding: 0.5em;
+  font-weight: bold;
+  margin: 1.5rem auto;
 }
