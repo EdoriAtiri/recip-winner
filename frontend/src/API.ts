@@ -25,7 +25,7 @@ const getRecipeSummary = async (id: string) => {
 }
 
 const getFavoriteRecipes = async () => {
-  const url = new URL('http://localhost:5000/api/recipes/favourite')
+  const url = new URL('http://localhost:5000/api/recipes/favorite')
   const response = await fetch(url)
 
   if (!response.ok) {
