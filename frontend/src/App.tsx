@@ -9,6 +9,7 @@ import {
 import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
 import RecipeModal from './components/RecipeModal'
+import hero from './assets/hero-image.jpg'
 
 type Tabs = 'search' | 'favorites'
 
@@ -87,6 +88,11 @@ const App = () => {
 
   return (
     <div className='container'>
+      <header className='header'>
+        <img src={hero} alt='Hero' />
+        <div className='title'>My Recipe App</div>
+      </header>
+
       <div className='tabs'>
         <button onClick={() => setSelectedTab('search')}>Recipe Search</button>
         <button onClick={() => setSelectedTab('favorites')}>Favorites</button>
