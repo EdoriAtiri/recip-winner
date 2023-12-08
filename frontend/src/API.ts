@@ -41,7 +41,7 @@ const addFavoriteRecipe = async (recipe: Recipe) => {
   const body = {
     recipeId: recipe.id,
   }
-  const response = await fetch('http://localhost:5000/api/recipes/favourite', {
+  const response = await fetch('http://localhost:5000/api/recipes/favorite', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const addFavoriteRecipe = async (recipe: Recipe) => {
 // Remove as favorite recipe
 const removeFavoriteRecipe = async (recipe: Recipe) => {
   const body = {
-    recipeID: recipe.id,
+    recipeId: recipe.id,
   }
   const response = await fetch('http://localhost:5000/api/recipes/favorite', {
     method: 'DELETE',
