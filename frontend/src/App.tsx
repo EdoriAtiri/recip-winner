@@ -5,7 +5,10 @@ import { Recipe } from './types'
 import RecipeCard from './components/RecipeCard'
 import RecipeModal from './components/RecipeModal'
 
+type Tabs = 'search' | 'favorites'
+
 const App = () => {
+  const [selectedTab, setSelectedTab] = useState<Tabs>('search')
   const [searchTerm, setSearchTerm] = useState('')
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(
@@ -41,27 +44,36 @@ const App = () => {
 
   return (
     <div className='container'>
-      <form onSubmit={handleSearchSubmit}>
-        <input
-          type='text'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />{' '}
-        <button type='submit'>Submit</button>
-      </form>
-
-      <div className='cardContainer'>
-        {recipes.map((recipe: Recipe) => (
-          <RecipeCard
-            click={() => setSelectedRecipe(recipe)}
-            key={recipe.id}
-            src={recipe.image}
-            title={recipe.title}
-          />
-        ))}
+      <div className='tabs'>
+        <button onClick={() => setSelectedTab('search')}>Recipe Search</button>
+        <button onClick={() => setSelectedTab('favorites')}>Favorites</button>
       </div>
 
-      <button onClick={handleViewMoreClick}>View More</button>
+      {selectedTab === 'search' && (
+        <div>
+          <form onSubmit={handleSearchSubmit}>
+            <input
+              type='text'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />{' '}
+            <button type='submit'>Submit</button>
+          </form>
+
+          <div className='cardContainer'>
+            {recipes.map((recipe: Recipe) => (
+              <RecipeCard
+                click={() => setSelectedRecipe(recipe)}
+                key={recipe.id}
+                src={recipe.image}
+                title={recipe.title}
+              />
+            ))}
+          </div>
+
+          <button onClick={handleViewMoreClick}>View More</button>
+        </div>
+      )}
 
       {selectedRecipe && (
         <RecipeModal
